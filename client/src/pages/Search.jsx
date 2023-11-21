@@ -156,10 +156,10 @@ export default function Search() {
 
   return (
     <div className=" flex flex-col md:flex-row">
-      <div className="md:w-1/3  p-7  border-b-2 md:border-r-2">
+      <div className="sm:w-1/3  p-7  border-b-2 sm:border-r-2">
         <form
           onSubmit={handleSubmit}
-          className="flex sm:pt-20 flex-col gap-8 md:fixed"
+          className="flex sm:pt-20 flex-col gap-8 sm:fixed"
         >
           <div className="flex items-center gap-2">
             <label className="whitespace-nowrap font-semibold">
