@@ -156,10 +156,10 @@ export default function Search() {
 
   return (
     <div className=" flex flex-col md:flex-row">
-      <div className=" sm:w-1/2 p-7  border-b-2 sm:border-r-2 flex">
+      <div className=" sm:w-2/5 pl-7  flex">
         <form
           onSubmit={handleSubmit}
-          className="flex sm:pt-20 flex-col gap-8 sm:fixed"
+          className="flex sm:pt-20 flex-col  gap-8 sm:fixed"
         >
           <div className="flex items-center gap-2">
             <label className="whitespace-nowrap font-semibold">
@@ -289,11 +289,11 @@ export default function Search() {
           </button>
         </form>
       </div>
-      <div className="flex-1  overflow-y-auto ">
-        <h1 className="text-3xl font-semibold border-b p-3 text-slate-700 mt-5">
+      <div className="flex-1 p-3 overflow-y-auto ">
+        <h1 className="text-3xl font-semibold  p-3 text-slate-700 mt-5">
           Listing results:
         </h1>
-        <div className="p-7 flex flex-wrap gap-4">
+        <div className="p-3 flex flex-wrap gap-4">
           {!loading && listings.length === 0 && (
             <p className="text-xl text-slate-700">No listing found!</p>
           )}
