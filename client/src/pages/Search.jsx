@@ -156,7 +156,7 @@ export default function Search() {
 
   return (
     <div className=" flex flex-col md:flex-row">
-      <div className="sm:w-1/3  p-7  border-b-2 sm:border-r-2">
+      <div className=" sm:w-1/2 p-7  border-b-2 sm:border-r-2 flex">
         <form
           onSubmit={handleSubmit}
           className="flex sm:pt-20 flex-col gap-8 sm:fixed"
@@ -289,7 +289,7 @@ export default function Search() {
           </button>
         </form>
       </div>
-      <div className="flex-1  overflow-y-auto p-7">
+      <div className="flex-1  overflow-y-auto ">
         <h1 className="text-3xl font-semibold border-b p-3 text-slate-700 mt-5">
           Listing results:
         </h1>
