@@ -127,7 +127,7 @@ export default function Listing() {
                   : `${listing.bedrooms} bed `}
               </li>
               <li className="flex items-center gap-2 whitespace-nowrap ">
-                <FaBed className="text-lg" />
+                <FaBath className="text-lg" />
                 {listing.bathrooms > 1
                   ? `${listing.bathrooms} baths `
                   : `${listing.bathrooms} bath `}
@@ -150,7 +150,7 @@ export default function Listing() {
               </li>
               <li className="flex items-center gap-2 whitespace-nowrap ">
                 <FaBuilding className="text-lg" />
-                {listing.appartment ? "Appartment" : "Individual"}
+                {listing.appartment ? "Apartment" : "Individual"}
               </li>
             </ul>
             {/* if current user is logged in or the listing is made by current user we wont him the contact owner button . if contact button is clicked then also we wont show this button button we show send email or message button */}

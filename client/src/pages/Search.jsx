@@ -224,7 +224,7 @@ export default function Search() {
                 checked={filterOptions.appartment}
                 onChange={handleChange}
               />
-              <span>Appartment</span>
+              <span>Apartment</span>
             </div>
           </div>
           <div className="flex gap-2 flex-wrap items-center">
