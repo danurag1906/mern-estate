@@ -68,7 +68,7 @@ export default function Header() {
               />
             ) : (
               <li className="hidden font-bold sm:inline text-slate-700 hover:underline cursor-pointer">
-                Sign in
+                Sign In
               </li>
             )}
           </Link>

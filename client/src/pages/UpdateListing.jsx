@@ -54,7 +54,7 @@ export default function UpdateListing() {
     fetchListing(); //to acheive async behaviour we are calling this function inside useEffect
   }, []);
 
-  console.log(formData);
+  // console.log(formData);
 
   const handleImageUpload = (e) => {
     if (files.length > 0 && files.length + formData.imageUrls.length < 6) {
@@ -98,7 +98,7 @@ export default function UpdateListing() {
         (snapshot) => {
           const progress =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log(`upload is ${progress}% done`);
+          // console.log(`upload is ${progress}% done`);
         },
         //if there is an error reject the promise
         (error) => {

@@ -42,7 +42,7 @@ export default function SignUp() {
       setError(null);
       setLoading(false);
       navigate("/sign-in");
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       //catch the error on client or browser side
       setError(error.message);
@@ -81,12 +81,12 @@ export default function SignUp() {
         >
           {loading ? "Loading..." : "SIGN UP"}
         </button>
-        <OAuth />
+        {/* <OAuth /> */}
       </form>
       <div className="flex gap-2 mt-5">
         <p>Have an account?</p>
         <Link to={"/sign-in"}>
-          <span className="text-blue-700">Sign in</span>
+          <span className="text-blue-700">Sign In</span>
         </Link>
       </div>
       {error && <p className="text-red-500 mt-5">{error}</p>}

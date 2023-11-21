@@ -22,7 +22,7 @@ export default function Search() {
   const [listings, setListings] = useState([]);
   const [showMore, setShowMore] = useState(false);
 
-  console.log(listings);
+  // console.log(listings);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
@@ -118,7 +118,7 @@ export default function Search() {
     }
   };
 
-  console.log(filterOptions);
+  // console.log(filterOptions);
 
   const handleSubmit = (e) => {
     e.preventDefault();

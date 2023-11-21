@@ -46,7 +46,7 @@ export default function SignIn() {
       }
       dispatch(signInSuccess(data));
       navigate("/");
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       //catch the error on client or browser side
       dispatch(signInFailure(error.message));
@@ -77,7 +77,7 @@ export default function SignIn() {
         >
           {loading ? "Loading..." : "SIGN IN"}
         </button>
-        <OAuth />
+        {/* <OAuth /> */}
       </form>
       <div className="flex gap-2 mt-5">
         <p>Dont have an account?</p>
