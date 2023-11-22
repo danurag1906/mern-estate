@@ -8,6 +8,7 @@ export default function Search() {
   const [filterOptions, setFilterOptions] = useState({
     searchTerm: "",
     type: "all",
+    // locationTerm: "",
     furnished: false,
     parking: false,
     solar: false,
@@ -27,6 +28,7 @@ export default function Search() {
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
     const searchTermFromUrl = urlParams.get("searchTerm");
+    // const locationTermFromUrl = urlParams.get("locationTerm");
     const typeFromUrl = urlParams.get("type");
     const parkingFromUrl = urlParams.get("parking");
     const furnishedFromUrl = urlParams.get("furnished");
@@ -40,6 +42,7 @@ export default function Search() {
     //if any of the filter fields changes we will update the state
     if (
       searchTermFromUrl ||
+      // locationTermFromUrl ||
       typeFromUrl ||
       parkingFromUrl ||
       furnishedFromUrl ||
@@ -52,6 +55,7 @@ export default function Search() {
     ) {
       setFilterOptions({
         searchTerm: searchTermFromUrl || "",
+        // locationTerm: locationTermFromUrl || "",
         type: typeFromUrl || "all",
         parking: parkingFromUrl === "true" ? true : false,
         furnished: furnishedFromUrl === "true" ? true : false,
@@ -95,6 +99,10 @@ export default function Search() {
       setFilterOptions({ ...filterOptions, searchTerm: e.target.value });
     }
 
+    // if (e.target.id === "locationTerm") {
+    //   setFilterOptions({ ...filterOptions, locationTerm: e.target.value });
+    // }
+
     if (
       e.target.id === "parking" ||
       e.target.id === "furnished" ||
@@ -127,6 +135,7 @@ export default function Search() {
     //we will first get if any existing parameter is present in the url
 
     urlParams.set("searchTerm", filterOptions.searchTerm);
+    // urlParams.set("locationTerm", filterOptions.locationTerm);
     urlParams.set("type", filterOptions.type);
     urlParams.set("parking", filterOptions.parking);
     urlParams.set("furnished", filterOptions.furnished);
@@ -163,17 +172,30 @@ export default function Search() {
         >
           <div className="flex items-center gap-2">
             <label className="whitespace-nowrap font-semibold">
-              Search Term:
+              Search Name:
             </label>
             <input
               type="text"
               id="searchTerm"
-              placeholder="Search..."
+              placeholder="Search by name or location ..."
               className="border rounded-lg p-3 w-full"
               value={filterOptions.searchTerm}
               onChange={handleChange}
             />
           </div>
+          {/* <div className="flex items-center gap-2">
+            <label className="whitespace-nowrap font-semibold">
+              Search Location:
+            </label>
+            <input
+              type="text"
+              id="locationTerm"
+              placeholder="Search by location..."
+              className="border rounded-lg p-3 w-full"
+              value={filterOptions.locationTerm}
+              onChange={handleChange}
+            />
+          </div> */}
           <div className="flex gap-2 flex-wrap items-center">
             <label className="font-semibold">Type:</label>
             <div className="flex gap-2">

@@ -108,12 +108,17 @@ export const getListings = async (req, res, next) => {
 
     const searchTerm = req.query.searchTerm || ""; //get the search term from the search bar
 
+    // const locationTerm = req.query.locationTerm || "";
+
     const sort = req.query.sort || "createdAt"; //sort it as per the req or by default sort by createdAt  (the latest one)
 
     const order = req.query.order || "desc";
 
     const listings = await Listing.find({
-      name: { $regex: searchTerm, $options: "i" }, //regex is to search if searchTerm is present or not everywhere in the 'name' and 'i' means dont care about lower case or upper case
+      $or: [
+        { name: { $regex: searchTerm, $options: "i" } },
+        { address: { $regex: searchTerm, $options: "i" } },
+      ], //regex is to search if searchTerm is present or not everywhere in the 'name' and 'i' means dont care about lower case or upper case
       offer,
       furnished,
       parking,

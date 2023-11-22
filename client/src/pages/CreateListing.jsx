@@ -154,6 +154,7 @@ export default function CreateListing() {
       setLoadingSubmit(true);
       setError(false);
       const res = await fetch("/api/listing/create", {
+        // credentials: "same-origin",
         method: "POST",
         headers: {
           "Content-Type": "application/json",
