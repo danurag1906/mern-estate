@@ -138,3 +138,79 @@ export const getListings = async (req, res, next) => {
     next(error);
   }
 };
+
+export const addToWishlist = async (req, res, next) => {
+  try {
+    const userId = req.body.userRef;
+    const listingId = req.params.id;
+
+    // Check if the listing exists
+    const listing = await Listing.findById(listingId);
+    if (!listing) {
+      return next(errorHandler(404, "Listing not found!"));
+    }
+
+    // Check if the user has already added the listing to the wishlist
+    if (listing.wishlistUsers.includes(userId)) {
+      return next(errorHandler(400, "Listing is already in your wishlist!"));
+    }
+
+    // Add the user to the wishlistUsers array
+    listing.wishlistUsers.push(userId);
+    await listing.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Listing added to wishlist successfully!",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getWishlistItems = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+
+    // Find all listings in the wishlist for the user
+    const wishlistItems = await Listing.find({ wishlistUsers: userId });
+
+    res.status(200).json(wishlistItems);
+  } catch (error) {
+    next(error);
+  }
+};
+
+//extra feature by me
+export const removeFromWishlist = async (req, res, next) => {
+  try {
+    const userId = req.body.userId;
+    const listingId = req.params.id;
+
+    // Check if the listing exists
+    const listing = await Listing.findById(listingId);
+    if (!listing) {
+      return next(errorHandler(404, "Listing not found!"));
+    }
+
+    // Check if the user has added the listing to the wishlist
+
+    // console.log(listing.wishlistUsers);
+
+    if (!listing.wishlistUsers.includes(userId)) {
+      return next(errorHandler(400, "Listing is not in your wishlist!"));
+    }
+
+    // Remove the user from the wishlistUsers array
+    const index = listing.wishlistUsers.indexOf(userId);
+    listing.wishlistUsers.splice(index, 1);
+    await listing.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Listing removed from wishlist successfully!",
+    });
+  } catch (error) {
+    next(error);
+  }
+};
