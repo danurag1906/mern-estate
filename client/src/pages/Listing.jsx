@@ -28,7 +28,9 @@ export default function Listing() {
   const [error, setError] = useState(false);
   const [copied, setCopied] = useState(false);
   const [contactButton, setContactButton] = useState(false);
+  const [wishlistMessage, setWishlistItems] = useState(null);
   const { currentUser } = useSelector((state) => state.user);
+
   useEffect(() => {
     const fetchListing = async () => {
       try {
@@ -42,6 +44,7 @@ export default function Listing() {
           setLoading(false);
           return;
         }
+
         setListing(data);
         // console.log(data.name);
         // console.log(listing.name);
@@ -55,6 +58,43 @@ export default function Listing() {
     };
     fetchListing();
   }, []);
+
+  const addToWishlist = async () => {
+    try {
+      const res = await fetch(
+        `/api/listing/addToWishlist/${params.listingId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userRef: currentUser._id,
+          }),
+        }
+      );
+
+      const data = await res.json();
+
+      if (data.success) {
+        setWishlistItems("Listing added to wishlist successfully!");
+      } else {
+        setWishlistItems(data.message);
+      }
+
+      if (data.message) {
+        // Display a message to the user (optional)
+        // console.log(data.message);
+        setWishlistItems(data.message);
+      }
+
+      // You may choose to update the UI to reflect the change in the wishlist
+    } catch (error) {
+      console.error("Error adding to wishlist:", error);
+      setWishlistItems("Error adding to wishlist", error.message);
+    }
+  };
+
   return (
     <main>
       {loading && <p className="text-center my-7 text-2xl"> Loading...</p>}
@@ -154,15 +194,30 @@ export default function Listing() {
               </li>
             </ul>
             {/* if current user is logged in or the listing is made by current user we wont him the contact owner button . if contact button is clicked then also we wont show this button button we show send email or message button */}
+            {currentUser && currentUser._id !== listing.userRef && (
+              <>
+                <button
+                  onClick={addToWishlist}
+                  className="bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3"
+                >
+                  Add to Wishlist
+                </button>
+                {wishlistMessage && (
+                  <p className="text-red-600 text-center">{wishlistMessage}</p>
+                )}
+              </>
+            )}
             {currentUser &&
               currentUser._id !== listing.userRef &&
               !contactButton && (
-                <button
-                  onClick={() => setContactButton(true)}
-                  className="bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3"
-                >
-                  Contact Landlord
-                </button>
+                <>
+                  <button
+                    onClick={() => setContactButton(true)}
+                    className="bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3"
+                  >
+                    Contact Landlord
+                  </button>
+                </>
               )}
             {/* if contact button is clicked we will show the user the below contact component */}
             {contactButton && <Contact listing={listing} />}
