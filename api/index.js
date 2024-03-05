@@ -10,9 +10,7 @@ import path from "path";
 dotenv.config();
 
 mongoose
-  .connect(
-    "mongodb+srv://mern-estate:mern-estate@mern-estate-cluster.3genvsj.mongodb.net/?retryWrites=true&w=majority"
-  )
+  .connect(process.env.MONGO_URL)
   .then(() => {
     console.log("connected to db !");
   })
@@ -36,6 +34,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/listing", listingRouter);
 
 app.use(express.static(path.join(__dirname, "/client/dist"))); // we will join the dirname form the render server to /client/dist (dist is created after building the vite+ react app)
+// express.static is a built-in middleware function in Express.js that serves static files in your application. It takes the path of the directory containing the static files as an argument.
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "client", "dist", "index.html"));
@@ -45,7 +44,7 @@ app.get("*", (req, res) => {
 app.use((err, req, res, next) => {
   //err-> the error created
   //next->going to the next middleware (function basically)
-  const statusCode = err.statusCode || 500;
+  const statusCode = err.statusCode || 500; //500 means an error happened in the server
   const message = err.message || "Internal Server Error";
   return res.status(statusCode).json({
     success: false,

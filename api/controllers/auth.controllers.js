@@ -4,14 +4,15 @@ import { errorHandler } from "../utils/error.js";
 import jwt from "jsonwebtoken";
 
 export const signup = async (req, res, next) => {
+  //next is the middle function which we created in the index.js file. We will pass the error to that middleware funciton and decrypt that in the index.js and then send the status code and error message as json to the frontend
   const { username, email, password } = req.body;
-  const hashedPassword = bcryptjs.hashSync(password, 10);
+  const hashedPassword = bcryptjs.hashSync(password, 10); //sync is done to await and 10 is the number of rounds to create that salt.
   const newUser = new User({ username, email, password: hashedPassword });
   try {
     await newUser.save();
-    res.status(201).json("New User created successfully!");
+    res.status(201).json("New User created successfully!"); //201 means something is created
   } catch (error) {
-    next(error); //this error will be send to the index.js via next() function and the error will be displayed there
+    next(error); //this error will be send to the index.js via next() middleware function and the error will be displayed in the frontend
   }
 };
 
@@ -28,19 +29,19 @@ export const signin = async (req, res, next) => {
     }
 
     //now check if the credentials are correct
-    //compatre password from client side with the one with database document
+    //compare password from client side with the one with database document
     const validPassword = bcryptjs.compareSync(password, validUser.password);
     if (!validPassword) {
       return next(errorHandler(401, "Wrong Credentials!"));
     }
 
-    //now if everything is correct we will save user detaisl in the cookies by hashing it
-
+    //now if everything is correct we will save user identity in the cookies by hashing it
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
 
     //we dont to send the user password in the res json. so we remove password and send rest of the information to the response in json
     const { password: pass, ...restData } = validUser._doc;
 
+    //httpOnly:true-> no other 3rd party application can access our cookie. By setting httpOnly: true, the cookie becomes inaccessible to JavaScript, making it more difficult for attackers to steal session information using XSS.
     res
       .cookie("access_token", token, { httpOnly: true })
       .status(200)
@@ -64,6 +65,7 @@ export const google = async (req, res, next) => {
         .status(200)
         .json(rest);
     } else {
+      //we are creating a dummy password because the user model has password as required field
       const generatedPassword =
         Math.random().toString(36).slice(-8) +
         Math.random().toString(36).slice(-8); //generate a password of length 16

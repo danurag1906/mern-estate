@@ -10,7 +10,7 @@ export const verifyToken = (req, res, next) => {
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) return next(errorHandler(403, "Forbidden")); //if there is an error in token verification throw a error mentioning user not verified to make updates
 
-    req.user = user; //this req.user will be used in the updateUser method in user.controllers.js file
+    req.user = user; //this req.user will be used in the updateUser method in user.controllers.js file . this user consist of user_id as we used the user's id to make access_token
     next(); // this function means the program control will go to the next function in user.routers.js i.e updateUser.
   });
 };
