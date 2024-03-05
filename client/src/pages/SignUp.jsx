@@ -13,9 +13,9 @@ export default function SignUp() {
 
   const handleChange = (e) => {
     setFormData({
-      //using spread operator to not the existing typed data
+      //using spread operator to not loose the existing typed data
       ...formData,
-      //useing th id's given to the input tags to change the values in the input.
+      //using the id's given to the input tags to change the values in the input and keep them as key value pairs in the formData object
       [e.target.id]: e.target.value,
     });
   };
