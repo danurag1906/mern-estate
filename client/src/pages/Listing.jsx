@@ -193,7 +193,7 @@ export default function Listing() {
                 {listing.appartment ? "Apartment" : "Individual"}
               </li>
             </ul>
-            {/* if current user is logged in or the listing is made by current user we wont him the contact owner button . if contact button is clicked then also we wont show this button button we show send email or message button */}
+            {/* if current user is logged in or the listing is made by current user we wont show him the contact owner button . if contact button is clicked then also we wont show this button button we show send email or message button */}
             {currentUser && currentUser._id !== listing.userRef && (
               <>
                 <button

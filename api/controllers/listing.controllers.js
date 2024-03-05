@@ -44,7 +44,7 @@ export const updateListing = async (req, res, next) => {
     const updatedListing = await Listing.findByIdAndUpdate(
       req.params.id,
       req.body,
-      { new: true }
+      { new: true } //this condition is required to get new updated listing instead of the previous one
     );
     res.status(200).json(updatedListing);
   } catch (error) {
